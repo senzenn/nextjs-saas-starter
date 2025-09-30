@@ -1,119 +1,89 @@
-# Next.js SaaS Starter
+# Solana BPF Client
 
-This is a starter template for building a SaaS application using **Next.js** with support for authentication, Stripe integration for payments, and a dashboard for logged-in users.
-
-**Demo: [https://next-saas-start.vercel.app/](https://next-saas-start.vercel.app/)**
+A modern Next.js client application for interacting with Solana BPF programs. Built with wallet integration, transaction handling, and a clean, responsive UI.
 
 ## Features
 
-- Marketing landing page (`/`) with animated Terminal element
-- Pricing page (`/pricing`) which connects to Stripe Checkout
-- Dashboard pages with CRUD operations on users/teams
-- Basic RBAC with Owner and Member roles
-- Subscription management with Stripe Customer Portal
-- Email/password authentication with JWTs stored to cookies
-- Global middleware to protect logged-in routes
-- Local middleware to protect Server Actions or validate Zod schemas
-- Activity logging system for any user events
-
-## Tech Stack
-
-- **Framework**: [Next.js](https://nextjs.org/)
-- **Database**: [Postgres](https://www.postgresql.org/)
-- **ORM**: [Drizzle](https://orm.drizzle.team/)
-- **Payments**: [Stripe](https://stripe.com/)
-- **UI Library**: [shadcn/ui](https://ui.shadcn.com/)
+- 🔗 **Wallet Integration**: Connect with popular Solana wallets (Phantom, Solflare)
+- ⚡ **BPF Program Support**: Optimized for Solana BPF program interactions
+- 🎨 **Modern UI**: Clean, responsive design with Tailwind CSS
+- 🛡️ **Secure**: Proper transaction validation and error handling
+- 🚀 **Fast**: Built with Next.js 15 and modern React patterns
 
 ## Getting Started
 
+### Prerequisites
+
+- Node.js 18+ 
+- A Solana wallet (Phantom, Solflare, etc.)
+
+### Installation
+
+1. Install dependencies:
 ```bash
-git clone https://github.com/nextjs/saas-starter
-cd saas-starter
 pnpm install
 ```
 
-## Running Locally
-
-[Install](https://docs.stripe.com/stripe-cli) and log in to your Stripe account:
-
-```bash
-stripe login
-```
-
-Use the included setup script to create your `.env` file:
-
-```bash
-pnpm db:setup
-```
-
-Run the database migrations and seed the database with a default user and team:
-
-```bash
-pnpm db:migrate
-pnpm db:seed
-```
-
-This will create the following user and team:
-
-- User: `test@test.com`
-- Password: `admin123`
-
-You can also create new users through the `/sign-up` route.
-
-Finally, run the Next.js development server:
-
+2. Run the development server:
 ```bash
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser to see the app in action.
+3. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-You can listen for Stripe webhooks locally through their CLI to handle subscription change events:
+### Wallet Connection
 
-```bash
-stripe listen --forward-to localhost:3000/api/stripe/webhook
+1. Click "Connect Wallet" in the header
+2. Select your preferred wallet from the modal
+3. Approve the connection in your wallet
+4. Start interacting with Solana BPF programs!
+
+## Project Structure
+
+```
+client/
+├── app/                    # Next.js app directory
+│   ├── (dashboard)/       # Dashboard pages
+│   └── layout.tsx         # Root layout with wallet provider
+├── components/
+│   ├── solana/            # Solana-specific components
+│   │   ├── wallet-button.tsx
+│   │   └── wallet-info.tsx
+│   └── ui/                # Reusable UI components
+├── lib/
+│   └── solana/            # Solana utilities and providers
+│       └── wallet-provider.tsx
+└── package.json
 ```
 
-## Testing Payments
+## Technologies Used
 
-To test Stripe payments, use the following test card details:
+- **Next.js 15**: React framework with App Router
+- **@solana/web3.js**: Solana JavaScript SDK
+- **@solana/wallet-adapter**: Wallet connection utilities
+- **Tailwind CSS**: Utility-first CSS framework
+- **TypeScript**: Type-safe JavaScript
+- **Lucide React**: Beautiful icons
 
-- Card Number: `4242 4242 4242 4242`
-- Expiration: Any future date
-- CVC: Any 3-digit number
+## Development
 
-## Going to Production
+### Available Scripts
 
-When you're ready to deploy your SaaS application to production, follow these steps:
+- `pnpm dev` - Start development server
+- `pnpm build` - Build for production
+- `pnpm start` - Start production server
 
-### Set up a production Stripe webhook
+### Environment Variables
 
-1. Go to the Stripe Dashboard and create a new webhook for your production environment.
-2. Set the endpoint URL to your production API route (e.g., `https://yourdomain.com/api/stripe/webhook`).
-3. Select the events you want to listen for (e.g., `checkout.session.completed`, `customer.subscription.updated`).
+No environment variables are required for basic functionality. The app connects to Solana devnet by default.
 
-### Deploy to Vercel
+## Contributing
 
-1. Push your code to a GitHub repository.
-2. Connect your repository to [Vercel](https://vercel.com/) and deploy it.
-3. Follow the Vercel deployment process, which will guide you through setting up your project.
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
 
-### Add environment variables
+## License
 
-In your Vercel project settings (or during deployment), add all the necessary environment variables. Make sure to update the values for the production environment, including:
-
-1. `BASE_URL`: Set this to your production domain.
-2. `STRIPE_SECRET_KEY`: Use your Stripe secret key for the production environment.
-3. `STRIPE_WEBHOOK_SECRET`: Use the webhook secret from the production webhook you created in step 1.
-4. `POSTGRES_URL`: Set this to your production database URL.
-5. `AUTH_SECRET`: Set this to a random string. `openssl rand -base64 32` will generate one.
-
-## Other Templates
-
-While this template is intentionally minimal and to be used as a learning resource, there are other paid versions in the community which are more full-featured:
-
-- https://achromatic.dev
-- https://shipfa.st
-- https://makerkit.dev
-- https://zerotoshipped.com
-- https://turbostarter.dev
+MIT License - see LICENSE file for details.
