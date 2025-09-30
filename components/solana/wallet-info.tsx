@@ -1,12 +1,24 @@
 'use client';
 
-import { useWallet } from '@solana/wallet-adapter-react';
+import { useState, useEffect } from 'react';
+import { useWallet, useConnection } from '@solana/wallet-adapter-react';
 import { Card } from '@/components/ui/card';
 import { Copy, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { LAMPORTS_PER_SOL } from '@solana/web3.js';
 
 export function WalletInfo() {
   const { publicKey, connected } = useWallet();
+  const { connection } = useConnection();
+  const [balance, setBalance] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (publicKey) {
+      connection.getBalance(publicKey).then((bal) => {
+        setBalance(bal);
+      });
+    }
+  }, [publicKey, connection]);
 
   if (!connected || !publicKey) {
     return (
@@ -43,7 +55,7 @@ export function WalletInfo() {
             </Button>
           </div>
         </div>
-        
+
         <div>
           <label className="text-sm font-medium text-gray-700">Explorer</label>
           <div className="mt-1">
@@ -57,6 +69,14 @@ export function WalletInfo() {
             </Button>
           </div>
         </div>
+
+        <div>
+          <label className="text-sm font-medium text-gray-700">Balance</label>
+          <p className="mt-1 text-lg font-medium">
+            {balance !== null ? (balance / LAMPORTS_PER_SOL).toFixed(4) : 'Loading...'} SOL
+          </p>
+        </div>
+
       </div>
     </Card>
   );

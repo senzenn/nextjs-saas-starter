@@ -1,89 +1,84 @@
-# Solana BPF Client
+# Solana Next.js Boilerplate
 
-A modern Next.js client application for interacting with Solana BPF programs. Built with wallet integration, transaction handling, and a clean, responsive UI.
+A simple and clean boilerplate for Solana wallet integration with Next.js, React, and TypeScript. Perfect starting point for building Solana dApps.
 
 ## Features
 
-- 🔗 **Wallet Integration**: Connect with popular Solana wallets (Phantom, Solflare)
-- ⚡ **BPF Program Support**: Optimized for Solana BPF program interactions
-- 🎨 **Modern UI**: Clean, responsive design with Tailwind CSS
-- 🛡️ **Secure**: Proper transaction validation and error handling
-- 🚀 **Fast**: Built with Next.js 15 and modern React patterns
+- **Wallet Connection**: Connect with popular Solana wallets (Phantom, Solflare)
+- **Wallet Information**: View connected wallet details, public key, and balance
+- **Transaction Sending**: Send SOL transactions to other addresses
+- **Airdrop Request**: Request SOL airdrops on devnet for testing
+- **Modern UI**: Clean, responsive interface built with Tailwind CSS and shadcn/ui
+- **TypeScript**: Full type safety throughout the application
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js 18+ 
-- A Solana wallet (Phantom, Solflare, etc.)
+- Node.js 18+
+- pnpm (recommended) or npm
 
 ### Installation
 
-1. Install dependencies:
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   pnpm install
+   ```
+
+3. Start the development server:
+   ```bash
+   pnpm dev
+   ```
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
+
+### Building for Production
+
 ```bash
-pnpm install
+pnpm build
+pnpm start
 ```
-
-2. Run the development server:
-```bash
-pnpm dev
-```
-
-3. Open [http://localhost:3000](http://localhost:3000) in your browser
-
-### Wallet Connection
-
-1. Click "Connect Wallet" in the header
-2. Select your preferred wallet from the modal
-3. Approve the connection in your wallet
-4. Start interacting with Solana BPF programs!
 
 ## Project Structure
 
 ```
-client/
-├── app/                    # Next.js app directory
-│   ├── (dashboard)/       # Dashboard pages
-│   └── layout.tsx         # Root layout with wallet provider
+├── app/
+│   ├── layout.tsx          # Root layout with wallet provider
+│   ├── page.tsx            # Main page with wallet integration
+│   └── globals.css         # Global styles
 ├── components/
-│   ├── solana/            # Solana-specific components
-│   │   ├── wallet-button.tsx
-│   │   └── wallet-info.tsx
-│   └── ui/                # Reusable UI components
-├── lib/
-│   └── solana/            # Solana utilities and providers
-│       └── wallet-provider.tsx
-└── package.json
+│   ├── solana/
+│   │   ├── wallet-button.tsx    # Wallet connect/disconnect button
+│   │   ├── wallet-info.tsx      # Wallet information display
+│   │   ├── send-transaction.tsx  # SOL transaction component
+│   │   └── airdrop.tsx           # Airdrop request component
+│   └── ui/                 # Reusable UI components
+└── lib/
+    ├── solana/
+    │   └── wallet-provider.tsx  # Wallet context provider
+    └── utils.ts            # Utility functions
 ```
 
-## Technologies Used
+## Solana Integration
 
-- **Next.js 15**: React framework with App Router
-- **@solana/web3.js**: Solana JavaScript SDK
-- **@solana/wallet-adapter**: Wallet connection utilities
-- **Tailwind CSS**: Utility-first CSS framework
-- **TypeScript**: Type-safe JavaScript
-- **Lucide React**: Beautiful icons
+This project uses the official Solana wallet adapter libraries:
 
-## Development
+- `@solana/wallet-adapter-react` - React hooks for wallet integration
+- `@solana/wallet-adapter-react-ui` - Pre-built UI components
+- `@solana/wallet-adapter-wallets` - Wallet adapters for popular wallets
+- `@solana/web3.js` - Solana JavaScript SDK
 
-### Available Scripts
+## Supported Wallets
 
-- `pnpm dev` - Start development server
-- `pnpm build` - Build for production
-- `pnpm start` - Start production server
+- Phantom
+- Solflare
+- (More wallets can be easily added)
 
-### Environment Variables
+## Network
 
-No environment variables are required for basic functionality. The app connects to Solana devnet by default.
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
+Currently configured for Solana Devnet. To change the network, update the `network` variable in `lib/solana/wallet-provider.tsx`.
 
 ## License
 
-MIT License - see LICENSE file for details.
+MIT
